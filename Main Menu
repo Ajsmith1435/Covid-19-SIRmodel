@@ -1,0 +1,36 @@
+Sub MergeWorkbooks()
+
+Dim FolderPath As String, File As String
+
+FolderPath = "C:Desktop\Vba Final Covid-19\Workbooks\"
+
+File = Dir(FolderPath)
+
+Do While File <> ""
+
+    Workbooks.Open FolderPath & File
+        Workbooks("Covid19History").Worksheets("Menu").Copy _
+        After:=ThisWorkbook.Worksheets(ThisWorkbook.Worksheets.Count)
+          
+File = Dir()
+
+Loop
+End Sub
+
+Private Sub cmdMainHistory_Click()
+ActiveWorkbook.Worksheets("Menu").Activate
+
+
+End Sub
+
+Private Sub cmdMainSim_Click()
+ActiveWorkbook.Worksheets("Infectious DIsease Simulator").Activate
+End Sub
+
+Private Sub cmdMainSymptom_Click()
+ActiveWorkbook.Worksheets("Symptoms Test").Activate
+End Sub
+
+Private Sub cmdMainTravel_Click()
+ActiveWorkbook.Worksheets("Covid-19-Links").Activate
+End Sub
