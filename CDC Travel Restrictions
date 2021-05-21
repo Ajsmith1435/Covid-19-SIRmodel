@@ -1,0 +1,109 @@
+Private Sub cbCancel_Click()
+
+'unloads ufTravel
+    Unload ufTravel
+    
+End Sub
+
+Private Sub lbContinent_Click()
+
+'Initializes variables
+Dim lnHold As Long, lnCount As Long, strHold As String, strContinent
+
+'Sets variables
+lnHold = 0
+lnCount = 2
+strHold = ""
+strContinent = CStr(lbContinent)
+
+'Clears list box
+lbCountry.Clear
+
+'Loops until empty value is found adding unique values to list box
+While Not IsEmpty(Range("A" & lnCount))
+    If Range("B" & lnCount).Value = strContinent Then
+        lbCountry.AddItem Range("A" & lnCount).Value
+        strHold = Range("A" & lnCount).Value
+    End If
+lnCount = lnCount + 1
+Wend
+
+End Sub
+
+Private Sub lbCountry_Click()
+
+End Sub
+
+Private Sub cbOk_Click()
+
+'Initializes variables
+Dim strCountry As String, strContinent As String, strRating As String, intRating As Integer, lnCount As Long, lnHold As Long, intUrl As Integer
+
+'Set variables
+lnCount = 2
+intRating = 0
+strRating = ""
+strContinent = CStr(lbContinent)
+strCountry = CStr(lbCountry)
+
+'While loop to loop through rows in worksheet until its empty
+While Not IsEmpty(Range("A" & lnCount))
+    'Checks to make sure Country selected and saves row number. Also checks if value in c is a string or integer.
+    If Range("A" & lnCount).Value = strCountry Then
+        If Range("C" & lnCount).Value = "N/A" Then
+            strRating = Range("C" & lnCount).Value
+            lnHold = lnCount
+        Else
+            intRating = Range("C" & lnCount).Value
+            lnHold = lnCount
+        End If
+    End If
+'Count to prevent recursion in while loop
+lnCount = lnCount + 1
+Wend
+
+'Checks the value in column C and displays the proper message
+If strRating = "N/A" Then
+    MsgBox ("The current risk level of traveling to " & strCountry & " is unknown. Please be careful if traveling to this country.")
+ElseIf intRating = 1 Then
+    MsgBox ("The current risk level of traveling to " & strCountry & " is low. It is safe to travel to this country")
+ElseIf intRating = 2 Then
+    MsgBox ("The current risk level of traveling to " & strCountry & " is moderate. Traveling to this country is not advised if at risk of serious illness.")
+ElseIf intRating = 3 Then
+    MsgBox ("The current risk level of traveling to " & strCountry & " is high. Traveling to this country should be avoided for all nonessential travel.")
+ElseIf intRating = 4 Then
+    MsgBox ("The current risk level of traveling to " & strCountry & " is very high. Traveling to this country should be avoided.")
+End If
+
+'Stores yes no answer to question
+intUrl = MsgBox("Do you wish to go to the CDC's website regarding this country and Covid-19?", vbQuestion + vbYesNo)
+
+'Checks intUrl value then lauches webpage checking to make sure the URL is usable first
+If intUrl = vbYes Then
+    If Range("K" & lnHold) = "x" Then
+        MsgBox ("This country does not possess a website regarding Covid-19.")
+    Else
+        callWebPage Range("D" & lnHold)
+    End If
+End If
+
+End Sub
+Private Sub UserForm_Initialize()
+
+'Adds geographic areas to lbcontinent
+lbContinent.AddItem "Asia"
+lbContinent.AddItem "Europe"
+lbContinent.AddItem "Africa"
+lbContinent.AddItem "America"
+lbContinent.AddItem "Oceania"
+
+End Sub
+
+Sub callWebPage(url)
+
+'Allows for hyperlinks on the excell sheet to be used
+    ActiveWorkbook.FollowHyperlink _
+    Address:=url, _
+    NewWindow:=True, _
+    AddHistory:=True
+End Sub
