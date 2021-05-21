@@ -1,0 +1,221 @@
+Private Sub cmdHow_Click()
+frmHow.Show
+End Sub
+
+Private Sub cmdMainMenu4_Click()
+ActiveWorkbook.Worksheets("Main Menu").Activate
+End Sub
+
+Private Sub cmdReset_Click()
+
+lbl1.Visible = False
+lbl2.Visible = False
+lbl3.Visible = False
+lbl4.Visible = False
+lbl5.Visible = False
+lbl6.Visible = False
+lbl7.Visible = False
+' Hiding labels of variables
+
+cmdHow.Visible = False
+cmdTerms.Visible = False
+cmdReset.Visible = False
+
+imgSIRModel.Visible = False
+imgSpread.Visible = True
+
+Range("D18").Value = Null
+Range("D15").Value = Null
+Range("D21").Value = Null
+Range("D24").Value = Null
+Range("D27").Value = Null
+Range("G21").Value = Null
+Range("G24").Value = Null
+
+'nulling all sim values
+
+End Sub
+
+Private Sub cmdRun_Click()
+
+Dim intTotal As Integer
+Dim dblTrans As Double
+Dim dblInfPeriod As Double
+Dim dblRNought As Double
+Dim intPeriod As Integer
+Dim dblContacts As Double
+Dim dblRemoval As Double
+
+intTotal = 35 'standard y axis for  simulation
+dblTrans = 0.02 'transmission rate
+dblInfPeriod = 10 'infection period
+dblContacts = 13.4 'default contacts/day
+dblRemoval = 1 / dblInfPeriod
+dblRNought = 100 * dblTrans * dblRemoval * dblContacts 'Calculating the Basic Reproduction number value and displaying it for the user
+intPeriod = 365 'standard x axis for  simulation
+
+lbl1.Visible = True
+lbl2.Visible = True
+lbl3.Visible = True
+lbl4.Visible = True
+lbl5.Visible = True
+lbl6.Visible = True
+lbl7.Visible = True
+' displaying labels of variables
+
+lblNarrator.Caption = "This simulation is a demonstration of how a mathematician might try and predict the spread of an infectious disease like Covid-19 using the SIR Model. The SIR Model uses differential equation modeling to calculate the susceptible, infected, and recovered populations as a function of time. This model is not perfect, it is oversimplified, as there are many external factors that it does not account for. Yet, it is still a great tool for understanding how a disease can spread without any intervention. The values used are rough estimates on the behaviors of humans and the virus, similar to the estimates someone might make at the beginning of the spread of Covid-19."
+'When running the simulation, the caption would reset to null. this is my solution
+
+cmdHow.Visible = True
+cmdTerms.Visible = True
+cmdReset.Visible = True
+
+imgSIRModel.Visible = True
+imgSpread.Visible = False
+
+Range("D18").Value = intTotal
+Range("D15").Value = intPeriod
+Range("D21").Value = dblTrans
+Range("D21").NumberFormat = "0.00%"
+Range("D24").Value = dblInfPeriod
+Range("D27").Value = dblRNought
+Range("D27").NumberFormat = "0.00"
+Range("G21").Value = dblContacts
+Range("G21").NumberFormat = "0.0"
+Range("G24").Value = dblRemoval 'using infection period to show the removal rate
+Range("G24").NumberFormat = "0.00%"
+
+
+
+'above is displaying the variables for the default simulation
+
+
+    
+
+
+
+
+
+End Sub
+
+Private Sub cmdStart_Click()
+
+
+
+frmVariables.Show
+
+   
+End Sub
+
+Private Sub CommandButton1_Click()
+
+End Sub
+
+Private Sub cmdSimVideo_Click()
+ActiveWorkbook.FollowHyperlink _
+Address:="https://www.youtube.com/channel/UCKzJFdi57J53Vr_BkTfN3uQ"
+'This links to a Youtube channel that posted a video that inspired me to show off a simulation method for this project
+
+
+End Sub
+
+Private Sub cmdTerms_Click()
+frmTerms.Show
+End Sub
+
+Private Sub Label1_Click()
+
+
+
+
+End Sub
+
+Private Sub TextBox1_Change()
+
+End Sub
+
+Private Sub ListBox1_Click()
+
+End Sub
+
+Private Sub lblTotPopVal_Click()
+
+End Sub
+
+
+Private Sub Label2_Click()
+
+End Sub
+
+Private Sub Label3_Click()
+
+End Sub
+
+Private Sub Label4_Click()
+
+End Sub
+
+Private Sub Label5_Click()
+
+End Sub
+
+Private Sub Label6_Click()
+
+End Sub
+
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+
+End Sub
+
+Private Sub lblNarrator_Click()
+
+End Sub
+
+Private Sub lblTotHealthy_Click()
+
+End Sub
+
+Private Sub lblTotPop_Click()
+
+End Sub
+
+Private Sub Worksheet_Activate()
+   
+lbl1.Visible = False
+lbl2.Visible = False
+lbl3.Visible = False
+lbl4.Visible = False
+lbl5.Visible = False
+lbl6.Visible = False
+lbl7.Visible = False
+' Hiding labels of variables
+
+cmdHow.Visible = False
+cmdTerms.Visible = False
+
+imgSIRModel.Visible = False
+imgSpread.Visible = True
+
+Range("D18").Value = Null
+Range("D15").Value = Null
+Range("D21").Value = Null
+Range("D24").Value = Null
+Range("D27").Value = Null
+Range("G21").Value = Null
+Range("G24").Value = Null
+'Hiding all values until simulation is run
+
+
+lblNarrator.Caption = "This simulation is a demonstration of how a mathematician might try and predict the spread of an infectious disease like Covid-19 using the SIR Model. The SIR Model uses differential equation modeling to calculate the susceptible, infected, and recovered populations as a function of time. This model is not perfect, it is oversimplified, as there are many external factors that it does not account for. Yet, it is still a great tool for understanding how a disease can spread without any intervention. The values used are rough estimates on the behaviors of humans and the virus, similar to the estimates someone might make at the beginning of the spread of Covid-19."
+
+MsgBox "Before We Start..." & vbCrLf & vbCrLf & "This simulation broadly demonstrates how an infectious disease can spread throughout a civilization using only a few important variables. The purpose of this demonstration is not to accurately demonstrate the spread of a disease such as COVID-19 but rather to help understand how a mathematician may model their prediction for the spread of an infectious disease." & vbCrLf & vbCrLf & "By running this simulation you can see how an infectious disease such as COVID-19 might spread using what is known as a SIR Model."
+lblNarrator.Caption = "In the perfect world of our simuation we assume all people in the population interact with 5 people a day, that this infectious disease is not lethal,"
+
+lblNarrator.Caption = "This simulation is a demonstration of how a mathematician might try and predict the spread of an infectious disease like Covid-19 using the SIR Model. The SIR Model uses differential equation modeling to calculate the susceptible, infected, and recovered populations as a function of time. This model is not perfect, it is oversimplified, as there are many external factors that it does not account for. Yet, it is still a great tool for understanding how a disease can spread without any intervention. The values used are rough estimates on the behaviors of humans and the virus, similar to the estimates someone might make at the beginning of the spread of Covid-19."
+'Proble, with label resetting, here is fix
+
+End Sub
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+End Sub
