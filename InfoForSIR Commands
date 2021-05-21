@@ -1,0 +1,24 @@
+Private Sub cmdSimVideo_Click()
+ActiveWorkbook.FollowHyperlink _
+Address:="https://www.youtube.com/channel/UCKzJFdi57J53Vr_BkTfN3uQ"
+'This links to a Youtube channel that posted a video that inspired me to show off a simulation method for this project
+
+
+End Sub
+
+Private Sub cmdHow_Click()
+frmHow.Show
+End Sub
+
+Private Sub cmdMainMenu4_Click()
+ActiveWorkbook.Worksheets("Main Menu").Activate
+End Sub
+
+Private Sub cmdSimVideo_Click()
+ActiveWorkbook.FollowHyperlink _
+Address:="https://www.youtube.com/channel/UCKzJFdi57J53Vr_BkTfN3uQ"
+'This links to a Youtube channel that posted a video that inspired me to show off a simulation method for this project
+
+
+End Sub
+
