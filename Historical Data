@@ -1,0 +1,281 @@
+Private Sub cmdMainMenu2_Click()
+ActiveWorkbook.Worksheets("Main Menu").Activate
+End Sub
+
+Private Sub cmdHistText_Click()
+Dim i As Integer
+Dim DL As Integer
+Dim Year As Integer
+Dim month As String
+Dim day As Integer
+Dim country As String
+
+'Find the final line of data
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+
+'Find which country has been selected
+If Me.optnAU = True Then country = "Asia"
+If Me.optnEU = True Then country = "Europe"
+If Me.optnNA = True Then country = "North America"
+
+'Find selected day
+For i = 0 To Me.lstDay.ListCount - 1
+    If Me.lstDay.Selected(i) = True Then
+        day = Me.lstDay.List(i)
+        Exit For
+    End If
+Next
+
+'Find selected month
+For i = 0 To Me.lstMonth.ListCount - 1
+    If Me.lstMonth.Selected(i) = True Then
+        month = Me.lstMonth.List(i)
+        Exit For
+    End If
+Next
+
+'Find selected year
+For i = 0 To Me.lstYear.ListCount - 1
+    If Me.lstYear.Selected(i) = True Then
+        Year = Me.lstYear.List(i)
+        Exit For
+    End If
+Next
+
+' display the event
+With Sheets("History Data")
+    For i = 2 To DL
+        If .Range("A" & i) = country And .Range("B" & i) = Year And .Range("C" & i) = month And .Range("E" & i) = day Then
+        
+            MsgBox ("In " & country & " on " & day & " " & month & " " & Year & " : " & .Range("G" & i))
+        
+        End If
+    Next
+End With
+
+
+
+End Sub
+
+Private Sub lstMonth_Click()
+Dim i As Integer
+Dim j As Integer
+Dim DL As Integer
+Dim z As Integer
+Dim indicateur As Integer
+Dim country As String
+Dim indexYear As Integer
+
+
+'Find which country has been selected
+If Me.optnAU = True Then country = "Asia"
+If Me.optnEU = True Then country = "Europe"
+If Me.optnNA = True Then country = "North America"
+
+ufSelects.lstDay.Clear
+'Find the selected year
+For i = 0 To lstYear.ListCount - 1
+    If Me.lstYear.Selected(i) = True Then indexYear = i
+Next
+
+
+
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+For i = 0 To lstMonth.ListCount - 1
+    If lstMonth.Selected(i) = True Then
+        
+        For j = 2 To DL
+            indicateur = 0
+            If CInt(Me.lstYear.List(indexYear)) = Sheets("History Data").Range("B" & j) And Me.lstMonth.List(i) = Sheets("History Data").Range("C" & j) And country = Sheets("History Data").Range("A" & j) Then
+                 For z = 0 To Me.lstDay.ListCount - 1
+                    If Me.lstDay.List(z) = Sheets("History Data").Range("E" & j) Then
+                        indicateur = 1
+                        Exit For
+                    End If
+                 Next
+                    If indicateur = 0 Then
+                        Me.lstDay.AddItem Sheets("History Data").Range("E" & j)
+                    End If
+            End If
+        Next
+       
+        
+        
+        
+    End If
+Next
+
+
+End Sub
+
+Private Sub lstYear_Click()
+Dim i As Integer
+Dim j As Integer
+Dim DL As Integer
+Dim z As Integer
+Dim indicateur As Integer
+Dim country As String
+
+
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+'Find which country has been selected
+If Me.optnAU = True Then country = "Asia"
+If Me.optnEU = True Then country = "Europe"
+If Me.optnNA = True Then country = "North America"
+ 
+ufSelects.lstMonth.Clear
+
+For i = 0 To lstYear.ListCount - 1
+    If lstYear.Selected(i) = True Then
+        
+        For j = 2 To DL
+            indicateur = 0
+            If CInt(Me.lstYear.List(i)) = Sheets("History Data").Range("B" & j) And country = Sheets("History Data").Range("A" & j) Then
+                 If Me.lstMonth.ListCount <= 0 Then ' for the first item to add !
+                    Me.lstMonth.AddItem Sheets("History Data").Range("C" & j)
+                 End If
+                 For z = 0 To Me.lstMonth.ListCount - 1
+                    If Me.lstMonth.List(z) = Sheets("History Data").Range("C" & j) Then
+                        indicateur = 1
+                        Exit For
+                    End If
+                 Next
+                    If indicateur = 0 Then
+                        Me.lstMonth.AddItem Sheets("History Data").Range("C" & j)
+                    End If
+
+            End If
+        Next
+       
+        
+        
+        
+    End If
+Next
+
+
+
+End Sub
+
+Private Sub optnAU_Click()
+Dim DL As Integer       'Final Line
+Dim i As Integer, j As Integer
+Dim indicator As Integer ' to check if we already have the year on the list
+Dim PLine As Integer
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+frmDate.Enabled = True
+Call Init.Clearlists
+
+
+If Me.optnAU.Value = True Then
+    For i = 2 To DL
+        If Sheets("History Data").Range("A" & i) = "Asia" Then
+            lstYear.AddItem Sheets("History Data").Range("B" & i)
+            PLine = i
+            Exit For
+        End If
+    Next
+    For i = PLine + 1 To DL
+        If Sheets("History Data").Range("A" & i) = "Asia" Then
+            indicator = 0
+            For j = 0 To lstYear.ListCount - 1
+               If Sheets("History Data").Range("B" & i) = CInt(lstYear.List(j)) Then
+                   indicator = 1
+               End If
+            Next
+            If indicator = 0 Then
+            
+               'Add the year
+               lstYear.AddItem Sheets("History Data").Range("B" & i)
+            End If
+        End If
+    Next
+End If
+End Sub
+
+Private Sub optnEU_Click()
+Dim DL As Integer       'Final Line
+Dim i As Integer, j As Integer
+Dim indicator As Integer ' to check if we already have the year on the list
+Dim PLine As Integer
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+
+frmDate.Enabled = True
+Call Init.Clearlists
+
+If Me.optnEU.Value = True Then
+    For i = 2 To DL
+        If Sheets("History Data").Range("A" & i) = "Europe" Then
+            lstYear.AddItem Sheets("History Data").Range("B" & i)
+            PLine = i
+            Exit For
+        End If
+    Next
+    For i = PLine + 1 To DL
+        If Sheets("History Data").Range("A" & i) = "Europe" Then
+            indicator = 0
+            For j = 0 To lstYear.ListCount - 1
+               If Sheets("History Data").Range("B" & i) = CInt(lstYear.List(j)) Then
+                   indicator = 1
+               End If
+            Next
+            If indicator = 0 Then
+               'Add the year
+               lstYear.AddItem Sheets("History Data").Range("B" & i)
+            End If
+        End If
+    Next
+End If
+End Sub
+
+Private Sub optnNA_Click()
+Dim DL As Integer       'Final Line
+Dim i As Integer, j As Integer
+Dim indicator As Integer ' to check if we already have the year on the list
+Dim PLine As Integer
+DL = Sheets("History Data").Range("A9999").End(xlUp).Row
+frmDate.Enabled = True
+Call Init.Clearlists
+If Me.optnNA.Value = True Then
+    For i = 2 To DL
+        If Sheets("History Data").Range("A" & i) = "North America" Then
+            lstYear.AddItem Sheets("History Data").Range("B" & i)
+            PLine = i
+            Exit For
+        End If
+    Next
+    For i = PLine + 1 To DL
+        If Sheets("History Data").Range("A" & i) = "North America" Then
+            indicator = 0
+            For j = 0 To lstYear.ListCount - 1
+               If Sheets("History Data").Range("B" & i) = CInt(lstYear.List(j)) Then
+                   indicator = 1
+               End If
+            Next
+            If indicator = 0 Then
+               'Add the year
+               lstYear.AddItem Sheets("History Data").Range("B" & i)
+            End If
+        End If
+    Next
+End If
+        
+
+    
+
+    
+End Sub
+
+Private Sub UserForm_Initialize()
+'Initalize the userform : add the years
+
+
+Dim DL As Integer       'Final Line
+Dim i As Integer, j As Integer
+Dim indicator As Integer ' to check if we already have the year on the list
+
+Me.frmDate.Enabled = False
+
+
+
+End Sub
