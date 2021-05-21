@@ -1,0 +1,83 @@
+Private Sub cmdMainMenu1_Click()
+ActiveWorkbook.Worksheets("Main Menu").Activate
+End Sub
+
+Private Sub CommandButton1_Click()
+
+MsgBox ("Hello! This will be a series of questions to better understand if you might have COVID-19 prior to getting tested.")
+
+UserFormC.Show
+
+End Sub
+
+Private Sub CommandButton2_Click()
+
+MsgBox ("Covid pretest cancelled")
+
+Unload UserFormC
+
+End Sub
+
+Public Sub CommandButtonC_Click()
+
+If Me.OptionButton5.Value = True Then MsgBox ("Ok, thank you for that information. Let's move forward with your vaccination history.")
+
+If Me.OptionButton6.Value = True Then MsgBox ("Ok, great! Let's move forward with your vaccination history.")
+
+If Me.OptionButton7.Value = True Then MsgBox ("Ok, no problem. Let's move forward with your vaccination history.")
+
+Unload UserFormC
+
+'If Me.OptionButton5.Value = False Then MsgBox ("Sorry, we did not get a response, please select one of the options.")
+
+'If Me.OptionButton6.Value = False Then MsgBox ("Sorry, we did not get a response, please select one of the options.")
+
+'If Me.OptionButton7.Value = False Then MsgBox ("Sorry, we did not get a response, please select one of the options.")
+
+UserForm2.Show
+
+End Sub
+
+Private Sub CommandButton1_Click()
+MsgBox ("Great! Thank you for that information. Let's move forward with a symptom checklist.")
+
+Unload UserForm2
+
+UserForm1.Show
+
+End Sub
+
+Private Sub CommandButton2_Click()
+MsgBox ("Ok thank you for that information. Let's move forward with a symptom checklist.")
+
+Unload UserForm2
+
+UserForm1.Show
+
+End Sub
+
+Private Sub CommandButton3_Click()
+MsgBox ("Ok, no problem at all. Let's move forward with a symptom checklist.")
+
+Unload UserForm2
+
+UserForm1.Show
+
+End Sub
+
+Private Sub CommandButton1_Click()
+
+MsgBox ("Ok, we recommend you self isolate and seek out a proper COVID-19 test.")
+
+
+Unload UserForm1
+
+End Sub
+
+Private Sub CommandButton2_Click()
+
+MsgBox ("Great! at this time we do not believe you should seek out a Covid Test.")
+
+Unload UserForm1
+
+End Sub
