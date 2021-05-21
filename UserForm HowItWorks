@@ -1,0 +1,22 @@
+
+Private Sub cmdDiff_Click()
+ActiveWorkbook.FollowHyperlink _
+Address:="https://www.maa.org/press/periodicals/loci/joma/the-sir-model-for-spread-of-disease-the-differential-equation-model"
+'Differential Equation models are hard, this page helps explain how they work in the SIR Model
+
+End Sub
+
+Private Sub cmdDone2_Click()
+frmHow.Hide
+
+End Sub
+
+Private Sub cmdHowVideo_Click()
+ActiveWorkbook.FollowHyperlink _
+Address:="https://www.youtube.com/watch?v=Qrp40ck3WpI"
+'This is a video I like that explains the math behind the SIR Model
+
+
+End Sub
+
+
