@@ -1,0 +1,24 @@
+
+Private Sub cmdContact_Click()
+MsgBox "The contacts per day is the average number of susceptible people that an infected person interacts with on any given day."
+End Sub
+
+Private Sub cmdDone_Click()
+frmTerms.Hide
+End Sub
+
+Private Sub cmdInfect_Click()
+MsgBox "The Infection Period is the number of days that someone has the disease and is contagious after they initially contract it."
+End Sub
+
+Private Sub CmdRecov_Click()
+MsgBox "The recovery rate is the rate at which infected people recovery and are removed from the simulation as they gain immunity from the disease."
+End Sub
+
+Private Sub cmdRNought_Click()
+MsgBox "The Basic Reproduction Number, also known as RNought, is the average number of people an infected person passes the disease onto while they are infected."
+End Sub
+
+Private Sub cmdTrans_Click()
+MsgBox "The transmission rate is the probability that an infected person passes the disease onto a susceptible person during a contact."
+End Sub
